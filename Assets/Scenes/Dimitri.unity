@@ -217,6 +217,8 @@ GameObject:
   - component: {fileID: 273800409}
   - component: {fileID: 273800408}
   - component: {fileID: 273800407}
+  - component: {fileID: 273800413}
+  - component: {fileID: 273800412}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -318,6 +320,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &273800412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273800406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4de0d635b9498b6459269362935aa522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 1
+  gravity: 9.8
+  velocity: 0
+--- !u!114 &273800413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273800406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc9ebdfb5039b143a84960b3e9dbd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalSpeed: 1
+  verticalSpeed: 1
+  minY: 75
+  maxY: 75
 --- !u!1 &635927260
 GameObject:
   m_ObjectHideFlags: 0
