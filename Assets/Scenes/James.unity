@@ -526,6 +526,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  OnHazardTriggered:
+    m_PersistentCalls:
+      m_Calls: []
   damage: 5
 --- !u!114 &1368231849
 MonoBehaviour:
@@ -653,6 +656,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  OnHazardTriggered:
+    m_PersistentCalls:
+      m_Calls: []
   damage: 50
 --- !u!114 &1617010205
 MonoBehaviour:
@@ -920,6 +926,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  OnHazardTriggered:
+    m_PersistentCalls:
+      m_Calls: []
   damage: 25
 --- !u!114 &1759320153
 MonoBehaviour:
