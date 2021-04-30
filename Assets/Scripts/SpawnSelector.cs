@@ -20,7 +20,7 @@ public class SpawnSelector : NetworkBehaviour
             }
 
             if (isLocalPlayer) {
-                transform.position = spawnPoint.position;
+                transform.position = Vector3.zero;
             }
 
             Destroy(spawnPoint.gameObject);
