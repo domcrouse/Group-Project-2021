@@ -51,12 +51,15 @@ public class CharacterMovement : NetworkBehaviour
 
     void Start()
     {
+        if (isClient)
+            return;
+
         cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     void Update()
     {
-        if (this.isLocalPlayer)
+        if (isClient)
         {
 
             float xDir = Input.GetAxisRaw("Horizontal");
@@ -73,7 +76,10 @@ public class CharacterMovement : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (isServer)
+        {
+            return;
+        }
 
         float targetAngle = Mathf.Atan2(InputDirection.x, InputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
         float targetTurnAngle = Mathf.Atan2(lastInputDirection.x, lastInputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
