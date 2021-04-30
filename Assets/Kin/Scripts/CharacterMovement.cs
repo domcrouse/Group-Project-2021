@@ -50,7 +50,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
-        
+        cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     void Update()
