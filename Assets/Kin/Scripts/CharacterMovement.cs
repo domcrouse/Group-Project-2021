@@ -5,7 +5,6 @@ using Mirror;
 
 public class CharacterMovement : NetworkBehaviour
 {
-
     public CharacterController characterController;
     public Transform cameraTransform;
 
@@ -49,37 +48,53 @@ public class CharacterMovement : NetworkBehaviour
         }
     }
 
+    [Command]
+    void CmdUpdatePosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
+
+    [Command]
+    void CmdUpdateRotation(Quaternion newRotation)
+    {
+        transform.rotation = newRotation;
+    }
+
     void Start()
     {
-        if (isClient)
+        if (!isLocalPlayer)
+        {
+            if(TryGetComponent(out CharacterController cc))
+            {
+                Destroy(cc);
+            }
             return;
+        }
 
         cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     void Update()
     {
-        if (isClient)
+        if (!isLocalPlayer) return;
+
+        float xDir = Input.GetAxisRaw("Horizontal");
+        float zDir = Input.GetAxisRaw("Vertical");
+
+        InputDirection = new Vector3(xDir, 0f, zDir).normalized;
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-
-            float xDir = Input.GetAxisRaw("Horizontal");
-            float zDir = Input.GetAxisRaw("Vertical");
-
-            InputDirection = new Vector3(xDir, 0f, zDir).normalized;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                jumpInputted = true;
-            }
+            jumpInputted = true;
         }
+
+        CmdUpdatePosition(transform.position);
+        CmdUpdateRotation(transform.rotation);
     }
 
     private void FixedUpdate()
     {
-        if (isServer)
-        {
-            return;
-        }
+        if (!isLocalPlayer) return;
 
         float targetAngle = Mathf.Atan2(InputDirection.x, InputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
         float targetTurnAngle = Mathf.Atan2(lastInputDirection.x, lastInputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
