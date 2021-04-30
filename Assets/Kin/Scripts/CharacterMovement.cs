@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : NetworkBehaviour
 {
 
     public CharacterController characterController;
@@ -55,14 +56,18 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        float xDir = Input.GetAxisRaw("Horizontal");
-        float zDir = Input.GetAxisRaw("Vertical");
-
-        InputDirection = new Vector3(xDir, 0f, zDir).normalized;
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (this.isLocalPlayer)
         {
-            jumpInputted = true;
+
+            float xDir = Input.GetAxisRaw("Horizontal");
+            float zDir = Input.GetAxisRaw("Vertical");
+
+            InputDirection = new Vector3(xDir, 0f, zDir).normalized;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                jumpInputted = true;
+            }
         }
     }
 
