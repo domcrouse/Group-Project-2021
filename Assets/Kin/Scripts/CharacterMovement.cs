@@ -48,18 +48,6 @@ public class CharacterMovement : NetworkBehaviour
         }
     }
 
-    [Command]
-    void CmdUpdatePosition(Vector3 newPosition)
-    {
-        transform.position = newPosition;
-    }
-
-    [Command]
-    void CmdUpdateRotation(Quaternion newRotation)
-    {
-        transform.rotation = newRotation;
-    }
-
     void Start()
     {
         if (!isLocalPlayer)
@@ -87,9 +75,6 @@ public class CharacterMovement : NetworkBehaviour
         {
             jumpInputted = true;
         }
-
-        CmdUpdatePosition(transform.position);
-        CmdUpdateRotation(transform.rotation);
     }
 
     private void FixedUpdate()
