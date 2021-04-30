@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : NetworkBehaviour
 {
-
     public CharacterController characterController;
     public Transform cameraTransform;
 
@@ -50,11 +50,22 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
+        if (!isLocalPlayer)
+        {
+            if(TryGetComponent(out CharacterController cc))
+            {
+                Destroy(cc);
+            }
+            return;
+        }
+
         cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     void Update()
     {
+        if (!isLocalPlayer) return;
+
         float xDir = Input.GetAxisRaw("Horizontal");
         float zDir = Input.GetAxisRaw("Vertical");
 
@@ -68,7 +79,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (!isLocalPlayer) return;
 
         float targetAngle = Mathf.Atan2(InputDirection.x, InputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
         float targetTurnAngle = Mathf.Atan2(lastInputDirection.x, lastInputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
