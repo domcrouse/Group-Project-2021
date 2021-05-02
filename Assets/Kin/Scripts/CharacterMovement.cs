@@ -128,8 +128,13 @@ public class CharacterMovement : NetworkBehaviour
                 //characterController.Move(jumpyVelocity * Vector3.up);
                 verticalVelocity = Mathf.Sqrt(-2 * gravity * jumpHeight);
 
-                jumpInputted = false;
+                
             }
+        }
+
+        if (jumpInputted)
+        {
+            jumpInputted = false;
         }
     }
 
