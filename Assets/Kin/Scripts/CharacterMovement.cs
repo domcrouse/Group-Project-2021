@@ -14,6 +14,7 @@ public class CharacterMovement : NetworkBehaviour
     bool jumpInputted = false;
     float verticalVelocity;
     float jumpHeight = 5f;
+    float jumpSpeed;
     float gravity = -70f;
     float gravityModifier = 2.3f;
 
@@ -60,6 +61,8 @@ public class CharacterMovement : NetworkBehaviour
         }
 
         cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").transform;
+
+        jumpSpeed = Mathf.Sqrt(-2 * gravity * jumpHeight); 
     }
 
     void Update()
@@ -92,7 +95,12 @@ public class CharacterMovement : NetworkBehaviour
 
         if (characterController.isGrounded)
         {
-            verticalVelocity = -1f;
+            verticalVelocity = -10f;
+        }
+        else if (verticalVelocity > jumpSpeed/4 && !Input.GetKey(KeyCode.Space))
+        {
+            verticalVelocity = jumpSpeed / 4;
+            print("short jump");
         }
         else if (verticalVelocity > 0)
         {
@@ -100,7 +108,14 @@ public class CharacterMovement : NetworkBehaviour
         }
         else
         {
-            verticalVelocity += gravity*gravityModifier * Time.deltaTime;
+            if (verticalVelocity > -60)
+            {
+                verticalVelocity += gravity * gravityModifier * Time.deltaTime;
+            }
+            else
+            {
+                verticalVelocity = -60;
+            }
         }
 
         Jump();
@@ -117,23 +132,19 @@ public class CharacterMovement : NetworkBehaviour
         currentVelocity += (Vector3.up * verticalVelocity);
         characterController.Move(currentVelocity * Time.deltaTime);
 
+  
     }
 
     void Jump()
     {
-        if (characterController.isGrounded)
+        if (jumpInputted)
         {
-            if (jumpInputted)
+            if (characterController.isGrounded)
             {
                 //characterController.Move(jumpyVelocity * Vector3.up);
                 verticalVelocity = Mathf.Sqrt(-2 * gravity * jumpHeight);
-
-                
             }
-        }
 
-        if (jumpInputted)
-        {
             jumpInputted = false;
         }
     }
