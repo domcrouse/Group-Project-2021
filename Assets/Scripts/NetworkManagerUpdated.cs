@@ -6,12 +6,18 @@ using UnityEngine;
 public class NetworkManagerUpdated : NetworkManager
 {
     public static Dictionary<int, GameObject> playerObjects; // Used to store each player's game object
+    public List<Transform> spawnPoints = new List<Transform>();
 
     public override void OnStartHost()
     {
         base.OnStartHost();
 
         playerObjects = new Dictionary<int, GameObject>();
+
+        foreach(GameObject spawn in GameObject.FindGameObjectsWithTag("Spawn Point"))
+        {
+            spawnPoints.Add(spawn.transform);
+        }
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -41,6 +47,16 @@ public class NetworkManagerUpdated : NetworkManager
                 {
                     health.UpdateHealthDisplay(); // Update the player's health display
                 }
+            }
+        }
+
+        if (player.TryGetComponent(out SpawnSelector spawnSelector))
+        {
+            if (spawnPoints.Count > 0)
+            {
+                Vector3 pos = spawnPoints[0].position;
+                spawnPoints.RemoveAt(0);
+                spawnSelector.RpcSpawn(pos);
             }
         }
     }

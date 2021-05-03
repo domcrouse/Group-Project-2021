@@ -5,30 +5,22 @@ using UnityEngine;
 
 public class SpawnSelector : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    [ClientRpc]
+    public void RpcSpawn(Vector3 position)
     {
-        Transform spawnPoint = GameObject.FindGameObjectWithTag("Spawn Point")?.transform ?? null;
+        CharacterController cc = GetComponent<CharacterController>();
 
-        if (spawnPoint)
+        if (cc && cc.enabled)
         {
-            CharacterController cc = GetComponent<CharacterController>();
+            cc.enabled = false;
+        }
 
-            if (cc != null)
-            {
-                cc.enabled = false;
-            }
+        transform.position = position;
 
-            if (isLocalPlayer) {
-                transform.position = Vector3.zero;
-            }
-
-            Destroy(spawnPoint.gameObject);
-
-            if (cc != null)
-            {
-                cc.enabled = true;
-            }
+        if (cc && !cc.enabled)
+        {
+            cc.enabled = true;
         }
     }
 }
