@@ -363,6 +363,7 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
+  spawnPoints: []
 --- !u!114 &127690869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -907,7 +908,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn Point
   m_TagString: Spawn Point
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1128,7 +1129,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn Point (1)
   m_TagString: Spawn Point
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
