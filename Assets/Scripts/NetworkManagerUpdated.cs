@@ -55,6 +55,7 @@ public class NetworkManagerUpdated : NetworkManager
             if (spawnPoints.Count > 0)
             {
                 Vector3 pos = spawnPoints[0].position;
+                Destroy(spawnPoints[0].gameObject);
                 spawnPoints.RemoveAt(0);
                 spawnSelector.RpcSpawn(pos);
             }
